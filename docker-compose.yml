@@ -1,0 +1,19 @@
+version: '3' # Docker Compose 的版本
+
+services:
+  # 定义一个服务，名字叫 blog-frontend
+  blog-frontend:
+    # 告诉 Docker Compose：去当前目录 (.) 找 Dockerfile 来构建镜像
+    build: .
+    
+    # 运行后的容器名字
+    container_name: blog-frontend
+    
+    # 端口映射：[服务器端口]:[容器内部端口]
+    # 意义：把服务器的 80 端口和容器里的 80 端口连通。
+    # 这样别人访问服务器 IP 时，流量就会进到这个容器里。
+    ports:
+      - "80:80"
+    
+    # 自动重启策略：如果服务器重启了，或者容器挂了，Docker 会自动把它拉起来
+    restart: always

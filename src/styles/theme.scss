@@ -1,0 +1,183 @@
+/* Theme Variables */
+:root {
+  /* Light Mode Defaults */
+  --bg-color: #f5f7fa;
+  --bg-color-secondary: #ffffff;
+  --text-color-primary: #303133;
+  --text-color-secondary: #606266;
+  --border-color: #dcdfe6;
+  --primary-color: #409eff;
+  --primary-color-hover: #66b1ff;
+  --header-bg: #ffffff;
+  --sidebar-bg: #ffffff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+html.dark {
+  /* Dark Mode Overrides */
+  --bg-color: #1a1b1e;
+  --bg-color-secondary: #25262b;
+  --text-color-primary: #e0e0e0;
+  --text-color-secondary: #a0a0a0;
+  --border-color: #2c2e33;
+  --primary-color: #409eff;
+  --primary-color-hover: #66b1ff;
+  --header-bg: #141517;
+  --sidebar-bg: #141517;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Global Styles */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Element Plus Overrides */
+.el-container {
+  background-color: var(--bg-color);
+  transition: background-color 0.3s ease;
+}
+
+.el-aside {
+  background-color: var(--sidebar-bg) !important;
+  border-right: 1px solid var(--border-color);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease !important;
+  
+  .el-menu {
+    background-color: transparent;
+    border-right: none;
+    
+    .el-menu-item {
+      color: var(--text-color-secondary);
+      transition: all 0.3s ease;
+      
+      &:hover, &.is-active {
+        background-color: var(--bg-color-secondary);
+        color: var(--primary-color);
+      }
+      
+      &.is-active {
+        border-right: 2px solid var(--primary-color);
+      }
+    }
+  }
+}
+
+.el-header {
+  background-color: var(--header-bg) !important;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.el-main {
+  background-color: var(--bg-color) !important;
+  padding: 20px;
+  transition: background-color 0.3s ease;
+}
+
+/* Card Styles */
+.el-card {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-color-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  
+  .el-card__header {
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+/* Table Styles - Fix for white background in dark mode */
+.el-table {
+  --el-table-bg-color: var(--bg-color-secondary);
+  --el-table-tr-bg-color: var(--bg-color-secondary);
+  --el-table-header-bg-color: var(--bg-color-secondary);
+  --el-table-row-hover-bg-color: var(--bg-color);
+  --el-table-border-color: var(--border-color);
+  --el-table-text-color: var(--text-color-primary);
+  --el-table-header-text-color: var(--text-color-secondary);
+  
+  background-color: var(--bg-color-secondary);
+  color: var(--text-color-primary);
+  
+  th.el-table__cell {
+    background-color: var(--bg-color-secondary);
+  }
+  
+  tr {
+    background-color: var(--bg-color-secondary);
+  }
+}
+
+/* Pagination */
+.el-pagination {
+  --el-pagination-bg-color: var(--bg-color-secondary);
+  --el-pagination-text-color: var(--text-color-primary);
+  --el-pagination-button-bg-color: var(--bg-color-secondary);
+  --el-pagination-hover-color: var(--primary-color);
+}
+
+/* Breadcrumb */
+.el-breadcrumb__inner {
+  color: var(--text-color-secondary) !important;
+  
+  &.is-link:hover {
+    color: var(--primary-color) !important;
+  }
+}
+.el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  color: var(--text-color-primary) !important;
+}
+
+/* Utility Classes */
+/* Utility Classes */
+.text-primary { color: var(--primary-color); }
+.text-secondary { color: var(--text-color-secondary); }
+.bg-default { background-color: var(--bg-color); }
+.bg-secondary { background-color: var(--bg-color-secondary); }
+.hover-bg-secondary:hover { background-color: var(--bg-color-secondary); }
+
+/* Layout Utilities (Replacements for Tailwind) */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.flex-grow { flex-grow: 1; }
+
+.h-screen { height: 100vh; }
+.h-16 { height: 64px; }
+.w-full { width: 100%; }
+
+.p-2 { padding: 0.5rem; }
+.p-6 { padding: 1.5rem; }
+.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.ml-6 { margin-left: 1.5rem; }
+.ml-auto { margin-left: auto; }
+.mr-2 { margin-right: 0.5rem; }
+
+.space-x-2 > * + * { margin-left: 0.5rem; }
+.space-x-4 > * + * { margin-left: 1rem; }
+
+.rounded-lg { border-radius: 0.5rem; }
+.shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+.shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+
+.z-10 { z-index: 10; }
+.cursor-pointer { cursor: pointer; }
+.border-b { border-bottom: 1px solid var(--border-color); }
+.border-none { border: none !important; }
+
+.transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 300ms; }
+.transition-colors { transition-property: background-color, border-color, color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 300ms; }
+.duration-300 { transition-duration: 300ms; }
+
+/* Font Utilities */
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+

@@ -1,0 +1,70 @@
+@import "tailwindcss";
+@import 'element-plus/theme-chalk/dark/css-vars.css';
+@import '../styles/theme.scss';
+
+/* Global Styles */
+:root {
+  /* Kept for reference but overridden by theme.scss */
+  --el-color-primary: #409eff;
+  --header-height: 60px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dcdfe6;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #373a40;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c0c4cc;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #4a4d55;
+}
+
+/* Utility classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(220, 223, 230, 0.5);
+}
+
+.dark .glass-effect {
+  background: rgba(37, 38, 43, 0.8);
+  border-bottom: 1px solid rgba(44, 46, 51, 0.5);
+}
+
