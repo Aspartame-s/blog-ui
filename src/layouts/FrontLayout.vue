@@ -10,9 +10,12 @@ const { isDark, toggleTheme } = useTheme()
 const route = useRoute()
 const activeIndex = computed(() => route.path)
 
+const isLoggedIn = ref(false)
 
 onMounted(() => {
   isDark.value = document.documentElement.classList.contains('dark')
+  // 检查是否存在令牌
+  isLoggedIn.value = !!localStorage.getItem('blog-token')
 })
 
 </script>
@@ -23,35 +26,27 @@ onMounted(() => {
     <el-header class="fixed w-full z-50 glass-effect !h-[60px] !p-0">
       <div class="container h-full flex items-center justify-between">
         <div class="flex items-center h-full">
-          <RouterLink to="/" class="text-xl font-bold text-gray-900 dark:text-white mr-10 flex items-center transition-colors">
+          <RouterLink to="/"
+            class="text-xl font-bold text-gray-900 dark:text-white mr-10 flex items-center transition-colors">
             <span class="text-blue-600 mr-2">●</span> My Blog
           </RouterLink>
-          
-          <el-menu
-            :default-active="activeIndex"
-            mode="horizontal"
-            :ellipsis="false"
-            class="!border-none !bg-transparent h-full"
-            router
-          >
+
+          <el-menu :default-active="activeIndex" mode="horizontal" :ellipsis="false"
+            class="!border-none !bg-transparent h-full" router>
             <el-menu-item index="/" class="dark:text-gray-300 dark:hover:text-white">首页</el-menu-item>
             <el-menu-item index="/category" class="dark:text-gray-300 dark:hover:text-white">分类/标签</el-menu-item>
           </el-menu>
         </div>
-        
+
         <div class="flex items-center space-x-4">
           <!-- Theme Toggle -->
-          <el-button 
-            circle 
-            :icon="isDark ? Sunny : Moon" 
-            @click="toggleTheme"
-            class="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300"
-          />
-          
-          <RouterLink to="/search">
-            <el-button circle :icon="Search" class="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300" />
+          <el-button circle :icon="isDark ? Sunny : Moon" @click="toggleTheme"
+            class="dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300" />
+
+          <RouterLink v-if="isLoggedIn" to="/admin">
+            <el-button type="success" plain round size="small">进入后台</el-button>
           </RouterLink>
-          <RouterLink to="/login">
+          <RouterLink v-else to="/login">
             <el-button type="primary" plain round size="small">博主登录</el-button>
           </RouterLink>
         </div>
