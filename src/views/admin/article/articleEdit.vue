@@ -64,6 +64,25 @@ const fetchArticle = async () => {
     }
 }
 
+const onUploadImg = async (files: File[], callback: (urls: string[]) => void) => {
+    const res = await Promise.all(
+        files.map((file) => {
+            return new Promise((rev, rej) => {
+                const form = new FormData();
+                form.append('image', file);
+
+                request.post('/upload', form, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                }).then((res) => rev(res))
+                    .catch((e) => rej(e));
+            });
+        })
+    );
+
+    // 将上传后的 URL 回传给编辑器显示
+    callback(res.map((item: any) => item.data.url));
+};
+
 const handleSave = async () => {
     if (!title.value.trim() || !content.value.trim()) {
         ElMessage.warning('标题和内容不能为空')
@@ -117,7 +136,7 @@ onMounted(() => {
         <!-- 编辑器区域 -->
         <div class="flex-1 overflow-hidden rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
             <MdEditor v-model="content" :toolbars="toolbars" :theme="editorTheme" class="h-full !border-none"
-                placeholder="在这里书写你的 Markdown 内容..." preview-theme="github" />
+                placeholder="在这里书写你的 Markdown 内容..." preview-theme="github" @onUploadImg="onUploadImg" />
         </div>
     </div>
 </template>
