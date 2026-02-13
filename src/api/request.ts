@@ -6,8 +6,8 @@ import { ElMessage } from 'element-plus';
 // 1. 创建 axios 实例
 const request = axios.create({
     // !!! 关键：将 baseURL 修改为你服务器的公网 IP 和端口
-    baseURL: 'http://localhost:3000/api',
-    // baseURL: 'http://101.133.132.31:3000/api', 
+    // baseURL: 'http://localhost:3000/api',
+    baseURL: 'http://101.133.132.31:3000/api',
     timeout: 5000 // 请求超时时间
 });
 
