@@ -31,7 +31,7 @@ onMounted(() => {
             to="/"
             class="text-xl font-bold text-gray-900 dark:text-white mr-10 flex items-center transition-colors"
           >
-            <span class="text-blue-600 mr-2">●</span> My Blog123
+            <span class="text-blue-600 mr-2">●</span> My Blog
           </RouterLink>
 
           <el-menu
