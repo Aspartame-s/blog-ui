@@ -32,7 +32,10 @@ const handlePdfUpload = async (e: Event) => {
   })
 
   try {
-    const res = await request.post('/toolbox/pdf-to-word', formData)
+    // 覆盖全局 request.ts 的 5 秒超时。大文件在弱网环境下上传极其容易超过 5 秒。
+    const res = await request.post('/toolbox/pdf-to-word', formData, {
+      timeout: 0 // 对于文件上传，设置无限时等待其流传输完毕
+    })
     
     loading.close()
     // 此处为新版 JSON API
