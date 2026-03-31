@@ -31,6 +31,12 @@ request.interceptors.request.use(
 // 3. 响应拦截器 (可选，但建议添加)
 request.interceptors.response.use(
     response => {
+        // 放行二进制流（如下载文件时 responseType 设为了 'blob' 或 'arraybuffer'）
+        // 必须原样返回完整 response，以便页面业务层拿到 response.data 和 headers
+        if (response.config.responseType === 'blob' || response.config.responseType === 'arraybuffer') {
+            return response;
+        }
+
         const res = response.data;
         // 如果 code 不是 200，则表示业务失败
         if (res.code !== 200) {
