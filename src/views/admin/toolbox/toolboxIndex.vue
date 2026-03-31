@@ -32,7 +32,7 @@ const handlePdfUpload = async (e: Event) => {
   try {
     const response = await request.post('/toolbox/pdf-to-word', formData, {
       responseType: 'blob', // 关键技术点：拦截器处按二进制数据流放行
-      timeout: 120000 // 赋予 2 分钟极长超时机制防中断
+      timeout: 600000 // 取消 2 分钟的安全阀值，延长至 10 分钟以支持服务器去解析极难的排版
     })
     
     // 生成前端虚拟下载链接
