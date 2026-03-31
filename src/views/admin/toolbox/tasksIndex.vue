@@ -124,6 +124,7 @@ const downloadFile = (taskId: number) => {
       <el-table-column label="子算力类型" width="140" align="center">
         <template #default="{ row }">
           <el-tag type="info" hit v-if="row.task_type === 'pdf2word'" class="border-blue-200 bg-blue-50 text-blue-600">PDF 析至 Word</el-tag>
+          <el-tag type="info" hit v-else-if="row.task_type === 'pdf2ppt'" class="border-teal-200 bg-teal-50 text-teal-600">PDF 绘至 PPTX</el-tag>
           <el-tag type="primary" hit v-else>{{ row.task_type }}</el-tag>
         </template>
       </el-table-column>
