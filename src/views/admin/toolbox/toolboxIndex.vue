@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { ElMessage, ElLoading } from 'element-plus'
 import request from '@/api/request'
 
+const router = useRouter()
 const pdfInput = ref<HTMLInputElement | null>(null)
 
 const triggerPdfUpload = () => {
@@ -25,47 +27,28 @@ const handlePdfUpload = async (e: Event) => {
 
   const loading = ElLoading.service({
     lock: true,
-    text: '正在为您高精度解析该 PDF 的排版及表格中，这可能需要几十秒，请勿关闭页面...',
-    background: 'rgba(0, 0, 0, 0.8)'
+    text: '高维封装：正在将物理文件打包上传至云端服务器控制队列，请稍候...',
+    background: 'rgba(0, 0, 0, 0.85)'
   })
 
   try {
-    const response = await request.post('/toolbox/pdf-to-word', formData, {
-      responseType: 'blob', // 关键技术点：拦截器处按二进制数据流放行
-      timeout: 600000 // 取消 2 分钟的安全阀值，延长至 10 分钟以支持服务器去解析极难的排版
-    })
+    const res = await request.post('/toolbox/pdf-to-word', formData)
     
-    // 生成前端虚拟下载链接
-    const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' })
-    const url = window.URL.createObjectURL(blob)
-    const link = document.createElement('a')
-    link.href = url
-    link.download = file.name.replace('.pdf', '.docx')
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    window.URL.revokeObjectURL(url)
-
-    ElMessage.success('🔥 文档已成功转换！')
-  } catch (error: any) {
-    // 错误拦截与流的反序列化（防 Blob 遮蔽后端 JSON 报错）
-    if (error.response && error.response.data instanceof Blob) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            try {
-                const errData = JSON.parse(reader.result as string);
-                ElMessage.error(errData.message || '后端底层解析引擎崩溃，这通常是由于 PDF 内嵌加密引起的');
-            } catch(e) {
-                ElMessage.error('网络或服务器系统错误');
-            }
-        };
-        reader.readAsText(error.response.data);
-    } else {
-        ElMessage.error(error.message || '服务器连接超时，请确定网络是否通畅')
-    }
-  } finally {
     loading.close()
-    target.value = '' // 清除记忆池
+    // 此处为新版 JSON API
+    if (res.code === 200) {
+        ElMessage.success('🔥 文件已被云端底座成功托管，转移视线，接驳全局监听大盘...')
+        setTimeout(() => {
+            router.push('/admin/toolbox/tasks') // 瞬间跳转到全新 SSE 网线的页面查看进度飙升
+        }, 600)
+    } else {
+        ElMessage.error(res.message || '调度建立异常，网关拒绝托管')
+    }
+  } catch (error: any) {
+    loading.close()
+    ElMessage.error(error.message || '服务器物理级连接中断，请检查基建网络')
+  } finally {
+    target.value = '' 
   }
 }
 

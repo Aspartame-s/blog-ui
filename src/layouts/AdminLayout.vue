@@ -71,10 +71,20 @@ const handleLogout = () => {
           <el-icon><Document /></el-icon>
           <template #title>文章管理</template>
         </el-menu-item>
-        <el-menu-item index="/admin/toolbox">
-          <el-icon><span class="material-symbols-outlined shrink-0" style="font-size: 18px;">build</span></el-icon>
-          <template #title>工具箱</template>
-        </el-menu-item>
+        <el-sub-menu index="/admin/toolbox">
+          <template #title>
+            <el-icon><span class="material-symbols-outlined shrink-0" style="font-size: 18px;">build</span></el-icon>
+            <span>工具箱</span>
+          </template>
+          <el-menu-item index="/admin/toolbox" :route="{ path: '/admin/toolbox' }">
+            <el-icon><span class="material-symbols-outlined text-[16px]">grid_view</span></el-icon>
+            <template #title>工具大厅</template>
+          </el-menu-item>
+          <el-menu-item index="/admin/toolbox/tasks" :route="{ path: '/admin/toolbox/tasks' }">
+            <el-icon><span class="material-symbols-outlined text-[16px]">format_list_bulleted</span></el-icon>
+            <template #title>我的工单</template>
+          </el-menu-item>
+        </el-sub-menu>
         <el-menu-item index="/admin/settings">
           <el-icon><Setting /></el-icon>
           <template #title>系统设置</template>

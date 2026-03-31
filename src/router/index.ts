@@ -68,7 +68,13 @@ const router = createRouter({
           path: 'toolbox',
           name: 'admin-toolbox',
           component: () => import('@/views/admin/toolbox/toolboxIndex.vue'),
-          meta: { title: '工具箱' }
+          meta: { title: '工具大厅' }
+        },
+        {
+          path: 'toolbox/tasks',
+          name: 'admin-toolbox-tasks',
+          component: () => import('@/views/admin/toolbox/tasksIndex.vue'),
+          meta: { title: '我的工单' }
         },
         {
           path: 'settings',
