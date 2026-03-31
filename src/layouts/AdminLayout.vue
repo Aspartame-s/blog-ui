@@ -71,6 +71,10 @@ const handleLogout = () => {
           <el-icon><Document /></el-icon>
           <template #title>文章管理</template>
         </el-menu-item>
+        <el-menu-item index="/admin/toolbox">
+          <el-icon><span class="material-symbols-outlined shrink-0" style="font-size: 18px;">build</span></el-icon>
+          <template #title>工具箱</template>
+        </el-menu-item>
         <el-menu-item index="/admin/settings">
           <el-icon><Setting /></el-icon>
           <template #title>系统设置</template>
